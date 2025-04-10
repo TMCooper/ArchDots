@@ -1,0 +1,38 @@
+[34m[INFO](B[m Sauvegarde des dotfiles en cours...
+[32m[OK](B[m Sauvegardé: .config/hypr
+[32m[OK](B[m Sauvegardé: .config/waybar
+[32m[OK](B[m Sauvegardé: .config/kitty
+[32m[OK](B[m Sauvegardé: .config/rofi
+[32m[OK](B[m Sauvegardé: .config/swappy
+[33m[NOTE](B[m Ignoré (n'existe pas): .config/dunst
+[32m[OK](B[m Sauvegardé: .config/fastfetch
+[32m[OK](B[m Sauvegardé: .config/wlogout
+[33m[NOTE](B[m Ignoré (n'existe pas): .config/nwg-look
+[33m[NOTE](B[m Ignoré (n'existe pas): .config/wofi
+[32m[OK](B[m Sauvegardé: .config/gtk-3.0
+[33m[NOTE](B[m Ignoré (n'existe pas): .config/gtk-4.0
+[32m[OK](B[m Sauvegardé: .zshrc
+[32m[OK](B[m Sauvegardé: .bashrc
+[33m[NOTE](B[m Ignoré (n'existe pas): .xinitrc
+[33m[NOTE](B[m Ignoré (n'existe pas): .Xresources
+[32m[OK](B[m Sauvegardé: .bash_history
+[32m[OK](B[m Sauvegardé: .bash_logout
+[32m[OK](B[m Sauvegardé: .bash_profile
+[32m[OK](B[m Sauvegardé: .gitconfig
+[32m[OK](B[m Sauvegardé: .gnupg
+[32m[OK](B[m Sauvegardé: .icons
+[33m[NOTE](B[m Ignoré (n'existe pas): .local/share/fonts
+[33m[NOTE](B[m Ignoré (n'existe pas): .local/share/icons
+[33m[NOTE](B[m Ignoré (n'existe pas): .local/share/themes
+[32m[OK](B[m Sauvegardé: .mozilla/firefox/profiles.ini
+[32m[OK](B[m Sauvegardé: .oh-my-zsh
+[32m[OK](B[m Sauvegardé: .ssh
+[32m[OK](B[m Sauvegardé: .themes
+[32m[OK](B[m Sauvegardé: .zprofile
+[32m[OK](B[m Sauvegardé: .zsh_history
+[34m[INFO](B[m Sauvegarde de la liste des paquets installés...
+[32m[OK](B[m Liste des paquets explicitement installés sauvegardée
+[32m[OK](B[m Liste complète des paquets sauvegardée
+[32m[OK](B[m Liste des paquets AUR sauvegardée
+[32m[OK](B[m Sauvegarde des paquets terminée
+[32m[OK](B[m Sauvegarde terminée dans: /home/tmcooper/ArchDots/backups/20250410-194525
