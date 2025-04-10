@@ -36,3 +36,8 @@
 [32m[OK](B[m Liste des paquets AUR sauvegardée
 [32m[OK](B[m Sauvegarde des paquets terminée
 [32m[OK](B[m Sauvegarde terminée dans: /home/tmcooper/ArchDots/backups/20250410-194525
+[32m[OK](B[m Changements commités dans le dépôt local Git
+error: src refspec master does not match any
+error: failed to push some refs to 'https://github.com/TMCooper/ArchDots.git'
+[32m[OK](B[m Changements poussés vers le dépôt distant
+[33m[NOTE](B[m Au revoir!
