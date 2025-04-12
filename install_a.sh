@@ -3,6 +3,7 @@
 
 # Variables
 REPO_DIR="$HOME/dotfiles-backup"
+REMOTE_URL="https://github.com/TMCooper/ArchDots.git"
 CONFIG_DIRS=(
     # Configurations graphiques et environnement
     ".config/hypr"
@@ -79,13 +80,20 @@ setup_repo() {
         print_msg "info" "Création du répertoire de sauvegarde..."
         mkdir -p "$REPO_DIR"
         cd "$REPO_DIR"
-        git init
+        git init -b main
         echo "# Dotfiles Backup" > README.md
         git add README.md
         git commit -m "Initial commit"
+        git remote add origin "$REMOTE_URL"
         print_msg "success" "Dépôt initialisé avec succès"
     else
         print_msg "info" "Le répertoire existe déjà"
+        cd "$REPO_DIR"
+        # Vérifier si origin existe, sinon l'ajouter
+        if ! git remote | grep -q "origin"; then
+            git remote add origin "$REMOTE_URL"
+            print_msg "info" "Dépôt distant ajouté"
+        fi
     fi
 }
 
@@ -167,23 +175,10 @@ commit_changes() {
     git commit -m "Sauvegarde: $(date +%Y-%m-%d_%H-%M-%S)"
     print_msg "success" "Changements commités localement"
     
-    # Vérifier si un remote existe déjà
-    if git remote | grep -q "origin"; then
-        read -p "Un dépôt distant est déjà configuré. Voulez-vous pousser les changements? (o/n): " push_answer
-        if [[ "$push_answer" == "o" || "$push_answer" == "O" ]]; then
-            git push origin master
-            print_msg "success" "Changements poussés vers le dépôt distant"
-        fi
-    else
-        # Demander à l'utilisateur s'il souhaite configurer un dépôt distant
-        read -p "Voulez-vous configurer un dépôt distant? (o/n): " answer
-        if [[ "$answer" == "o" || "$answer" == "O" ]]; then
-            read -p "Entrez l'URL du dépôt distant (ex: https://github.com/username/repo.git): " remote_url
-            git remote add origin "$remote_url"
-            git push -u origin master
-            print_msg "success" "Changements poussés vers le dépôt distant"
-        fi
-    fi
+    # Push vers le dépôt distant configuré
+    print_msg "info" "Envoi des modifications vers le dépôt distant..."
+    git push -u origin main
+    print_msg "success" "Changements poussés vers le dépôt distant"
 }
 
 # Fonction de restauration
@@ -339,14 +334,8 @@ show_menu() {
             ;;
         3)
             if [ ! -d "$REPO_DIR" ]; then
-                read -p "Aucun dépôt local trouvé. Voulez-vous cloner un dépôt distant? (o/n): " answer
-                if [[ "$answer" == "o" || "$answer" == "O" ]]; then
-                    read -p "Entrez l'URL du dépôt distant: " remote_url
-                    git clone "$remote_url" "$REPO_DIR"
-                else
-                    print_msg "error" "Impossible de restaurer sans dépôt."
-                    exit 1
-                fi
+                print_msg "info" "Aucun dépôt local trouvé. Clonage du dépôt distant..."
+                git clone "$REMOTE_URL" "$REPO_DIR"
             fi
             restore_dotfiles
             restore_packages
