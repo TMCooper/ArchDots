@@ -1,0 +1,8 @@
+# Liste des dossiers exclus de la sauvegarde
+discord
+GeForce NOW
+gh
+lazygit
+pulse
+spotify
+gnupg

@@ -1,0 +1,11 @@
+dracula-gtk-theme
+geforcenow-electron
+geforcenow-electron-debug
+pyprland
+spotdl
+spotify-adblock
+visual-studio-code-bin
+wallust
+wlogout
+yay-bin
+yay-bin-debug
