@@ -105,8 +105,7 @@ EOL
   echo "Commit et push des changements..."
   git add .
   git commit -m "Sauvegarde automatique $(date +'%Y-%m-%d %H:%M:%S')"
-  git push origin master
-
+  git push origin main
   echo "Sauvegarde terminée avec succès!"
 }
 
@@ -124,7 +123,7 @@ restore_system() {
 
   # Mettre à jour le dépôt local
   echo "Mise à jour du dépôt..."
-  git pull origin master
+  git pull origin main
 
   # Installer les paquets officiels
   echo "Installation des paquets officiels..."
