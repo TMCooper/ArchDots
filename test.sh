@@ -5,6 +5,29 @@
 # Définir le répertoire du dépôt Git (le répertoire courant si le script est exécuté depuis le dépôt)
 REPO_DIR="$(pwd)"
 
+# Liste des dossiers à exclure de la sauvegarde dans ~/.config
+# Ajoutez ou retirez des dossiers selon vos besoins
+EXCLUDED_DIRS=(
+  "discord"
+  "GeForce NOW"
+  "gh"
+  "lazygit"
+  "pulse"
+  "spotify"
+  "gnupg"
+)
+
+# Fonction pour vérifier si un dossier est dans la liste d'exclusion
+is_excluded() {
+  local dir_name="$1"
+  for excluded in "${EXCLUDED_DIRS[@]}"; do
+    if [ "$dir_name" = "$excluded" ]; then
+      return 0
+    fi
+  done
+  return 1
+}
+
 # Fonction de sauvegarde
 backup_system() {
   echo "===== SAUVEGARDE DU SYSTÈME ====="
@@ -24,16 +47,59 @@ backup_system() {
 
   # Créer un répertoire pour les fichiers de configuration
   mkdir -p "$REPO_DIR/config"
+  mkdir -p "$REPO_DIR/config/.config"
 
-  # Sauvegarde des configurations importantes
+  # Sauvegarde des configurations en excluant les dossiers spécifiés
   echo "Sauvegarde des fichiers de configuration..."
-  cp -r "$HOME/.config" "$REPO_DIR/config/"
+  
+  # On parcourt tous les dossiers de .config et on exclut ceux de la liste
+  for dir in "$HOME"/.config/*/; do
+    dir_name=$(basename "$dir")
+    
+    if is_excluded "$dir_name"; then
+      echo "Exclusion du dossier $dir_name (contient potentiellement des données sensibles)..."
+      
+      # Traitement spécial pour Discord : sauvegarder seulement settings.json
+      if [ "$dir_name" = "discord" ]; then
+        echo "  Sauvegarde partielle de discord (settings.json uniquement)"
+        mkdir -p "$REPO_DIR/config/.config/discord"
+        [ -f "$dir/settings.json" ] && cp "$dir/settings.json" "$REPO_DIR/config/.config/discord/"
+      fi
+    else
+      # Copier les autres dossiers de configuration
+      echo "Copie de $dir_name..."
+      cp -r "$dir" "$REPO_DIR/config/.config/"
+    fi
+  done
 
   # Ajout d'autres fichiers de configuration importants
   cp "$HOME/.bashrc" "$REPO_DIR/" 2>/dev/null
   cp "$HOME/.zshrc" "$REPO_DIR/" 2>/dev/null
   cp "$HOME/.xinitrc" "$REPO_DIR/" 2>/dev/null
   sudo cp "/etc/fstab" "$REPO_DIR/" 2>/dev/null
+
+  # Créer ou mettre à jour le fichier .gitignore
+  cat > "$REPO_DIR/.gitignore" << EOL
+# Fichiers sensibles à ignorer
+**/*.token
+**/*.key
+**/*_tokens.*
+**/*secrets*
+**/*password*
+**/*credential*
+**/Cache/
+**/GPUCache/
+**/Code Cache/
+**/cookies*
+**/Cookies*
+**/discord/Local Storage/
+**/discord/Session Storage/
+**/storage.json
+EOL
+
+  # Sauvegarder la liste des dossiers exclus pour référence
+  echo "# Liste des dossiers exclus de la sauvegarde" > "$REPO_DIR/excluded_dirs.txt"
+  printf "%s\n" "${EXCLUDED_DIRS[@]}" >> "$REPO_DIR/excluded_dirs.txt"
 
   # Commit et push des changements
   echo "Commit et push des changements..."
@@ -88,6 +154,16 @@ restore_system() {
   if [ -d "$REPO_DIR/config/.config" ]; then
     mkdir -p "$HOME/.config"
     cp -r "$REPO_DIR/config/.config/"* "$HOME/.config/"
+    
+    # Afficher les dossiers qui ont été exclus de la sauvegarde
+    if [ -f "$REPO_DIR/excluded_dirs.txt" ]; then
+      echo "REMARQUE: Les dossiers suivants ont été exclus de la sauvegarde :"
+      grep -v "^#" "$REPO_DIR/excluded_dirs.txt"
+      echo "Vous devrez reconfigurer manuellement ces applications."
+    else
+      echo "ATTENTION: Certaines configurations contenant des données sensibles peuvent avoir été exclues."
+      echo "Vous devrez peut-être vous reconnecter à certaines applications."
+    fi
   else
     echo "Dossier de configuration non trouvé!"
   fi
