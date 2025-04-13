@@ -32,11 +32,7 @@ CONFIG_DIRS = [
     ".config/Kvantum",
     ".config/qt5ct",
     ".config/qt6ct",
-    
-    # Multimédia
-    ".config/mpv",
-    ".config/spotify",
-    
+  
     # Gestionnaires de fichiers
     ".config/Thunar",
     ".config/xarchiver",
