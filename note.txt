@@ -12,4 +12,6 @@ wifi.backend=iwd"
 pour installer yay : sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 installer wallust : yay -S wallust
 
+Voir si on peut pas faire d'une meilleur manière les groupe et sessions ? (mieux j'entend que le root sois pas saturer ?)
+
 a retravailler : hyprlock, kitty ?, 
