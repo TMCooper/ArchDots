@@ -1,0 +1,10 @@
+a backup : .config .oh-my-zsh
+
+install zsh : sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+a installer : sudo holo -S ttf-jetbrains-mono-nerd
+
+pour installer yay : sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+installer wallust : yay -S wallust
+
+a retravailler : hyprlock, kitty ?, 
