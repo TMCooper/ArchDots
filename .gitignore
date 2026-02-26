@@ -19,3 +19,5 @@ go
 .zcompdump-Holo-5.9.zwc
 procps
 .ssh
+.gitconfig
+.zshrc
