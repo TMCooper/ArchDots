@@ -1,0 +1,26 @@
+configuration {
+    show-icons:      true;
+    display-drun:    "?"; 
+    drun-display-format: "{name}";
+}
+
+* {
+    /* --- PALETTE TOKYONIGHT --- */
+    bg0:    #16161ef2;  /* Fond principal */
+    bg1:    #1f2335;    /* Barre de recherche */
+    bg2:    #292e4280;  /* Messages */
+    bg3:    #3b4261;    /* SÉLECTION (Le bleu sombre que tu voulais) */
+    
+    fg0:    #787c99;    /* TEXTE DISPONIBLE : Gris-bleu tamisé (moins agressif) */
+    fg1:    #c0caf5;    /* TEXTE SÉLECTIONNÉ : Bleu clair brillant */
+    fg2:    #7aa2f7;    /* Icône/Prompt */
+    fg3:    #444b6a;    /* Placeholder très discret */
+
+    font:   "JetBrains Mono 11";
+    background-color:   transparent;
+    margin:     0px;
+    padding:    0px;
+    spacing:    0px;
+}
+
+@import "template/rounded-template.rasi"
